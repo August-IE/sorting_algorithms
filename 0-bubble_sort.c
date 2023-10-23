@@ -8,34 +8,35 @@
 
 void swap(int *x, int *y)
 {
-    int temp = *x;
-    *x = *y;
-    *y = temp;
+	int temp = *x;
+	*x = *y;
+	*y = temp;
 }
 
+
 /**
- * bubble_sort - Sort an array of integers in ascending order.
+ * bubble_sort - A funcion that sorts an array of integers in ascending order.
  * @array: An array of integers to sort.
  * @size: The size of the array.
  *
- * Description: Prints the array after each swap.
+ * Description: Prints the array after each time we swap two elements.
  */
 void bubble_sort(int *array, size_t size)
 {
-    size_t i, j;
+	size_t i, j;
 
-    if (!array && !size)
-    return;
+	if (!array && !size)
+	return;
 
-    for (i = 0; i < size; i++)
-    {
-        for (j = 0; j < size - 1; j++)
-        {
-            if (array[j] > array[j + 1])
-            {
-            swap(&array[j], &array[j+1]);
-            print_array(array, size);
-            }
-        }
-    }
+	for (i = 0; i < size; i++)
+	{
+	for (j = 0; j < size - 1; j++)
+	{
+	if (array[j] > array[j + 1])
+	{
+	swap(&array[j], &array[j + 1]);
+	print_array(array, size);
+	}
+	}
+	}
 }
