@@ -1,6 +1,6 @@
-#include <stdio.h>
-#include <stdio.h>
 #include "sort.h"
+#include <stdio.h>
+#include <stdio.h>
 
 /**
  * swap - Swap two integers in an array.
@@ -29,11 +29,11 @@ void swap(int *x, int *y)
 int lomuto_partition(int *array, size_t size, int lo, int hi)
 {
 	int i, j, *pivot;
-    
+
 	pivot = array + hi;
 	for (i = j = lo; j < hi; j++)
 	{
-		 if (array[j] < *pivot)
+		if (array[j] < *pivot)
 		{
 			if (i < j)
 			{
@@ -66,14 +66,14 @@ void lomuto_sort(int *array, size_t size, int lo, int hi)
 {
 	int p;
 
-    if (lo >= hi || lo < 0) 
-    return;
+	if (lo >= hi || lo < 0)
+	return;
 
 	if (lo < hi)
 	{
 		p = lomuto_partition(array, size, lo, hi);
 		lomuto_sort(array, size, lo, p - 1);
-		lomuto_sort(array, size, p + 1, hi); 
+		lomuto_sort(array, size, p + 1, hi);
 	}
 }
 
