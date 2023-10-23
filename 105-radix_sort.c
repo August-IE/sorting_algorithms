@@ -40,8 +40,9 @@ int index = (array[i] / digit) % 10;
 count[index]++;
 }
 for (i = 1; i < 10; ++i)
+{
 count[i] += count[i - 1];
-
+}
 for (i = size - 1; (int)i >= 0; --i)
 {
 int index = (array[i] / digit) % 10;
@@ -49,7 +50,9 @@ output[count[index] - 1] = array[i];
 count[index]--;
 }
 for (i = 0; i < size; ++i)
+{
 array[i] = output[i];
+}
 }
 
 /**
