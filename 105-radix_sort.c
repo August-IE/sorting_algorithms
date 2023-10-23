@@ -79,4 +79,5 @@ for (digit = 1; max / digit > 0; digit *= 10)
 radix_counting_sort(array, size, digit, output);
 print_array(array, size);
 }
+free (output);
 }
