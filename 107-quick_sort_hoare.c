@@ -23,7 +23,7 @@ void swap(int *x, int *y)
  * @size: The size of the array.
  * @lo: The starting index of left side of the pivot.
  * @hi: The ending index of right side of the pivot.
- * 
+ *
  * Return: The final partition index.
  *
  * Description: Uses the last element of the partition as the driver.
@@ -57,21 +57,20 @@ int hoare_partition(int *array, size_t size, int lo, int hi)
  * hoare_sort - Implement the quicksort algorithm through recursion.
  * @array: An array of integers to sort.
  * @size: The size of the array.
- * @left: The starting index of the array partition to order.
- * @right: The ending index of the array partition to order.
+ * @lo: The starting index of left side of the pivot.
+ * @hi: The ending index of right side of the pivot.
  *
  * Description: Uses the Hoare partition scheme.
  */
 void hoare_sort(int *array, size_t size, int lo, int hi)
 {
-	int p;
-      
-	if (lo >= 0 && hi >= 0 && lo < hi)
-	{
-		p = hoare_partition(array, size, lo, hi);
-		hoare_sort(array, size, lo, p - 1);
-		hoare_sort(array, size, p, hi);
-	}
+int p;
+if (lo >= 0 && hi >= 0 && lo < hi)
+{
+p = hoare_partition(array, size, lo, hi);
+hoare_sort(array, size, lo, p - 1);
+hoare_sort(array, size, p, hi);
+}
 }
 
 /**
