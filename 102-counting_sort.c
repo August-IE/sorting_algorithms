@@ -30,24 +30,24 @@ return (max);
 void counting_sort(int *array, size_t size)
 {
 /*Function to perform Counting Sort*/
-int max, i;
-int count[max + 1];
-int output[size];
+int i, max;
+int *count;
+int *output;
 
 if (array == NULL || !size)
 return;
-/*output = malloc(sizeof(int) * size);*/
+output = malloc(sizeof(int) * size);
 if (output == NULL)
 return;
+
 /* Find the maximum element in the array*/
 max = find_max(array, size);
-/*count[max + 1] = malloc(sizeof(int) * (max + 1));*/
+count = malloc((max + 1) * sizeof(int));
 if (count == NULL)
 {
 return;
 }
 /* Initialize a count array with all zeros*/
-/*int count[max + 1];*/
 for (i = 0; i <= max; i++)
 count[i] = 0;
 /*Store the count of each element at respective index in the count array*/
@@ -55,8 +55,10 @@ for (i = 0; i < (int)size; i++)
 count[array[i]]++;
 /* Find cumulative sum and store it in the count array itself*/
 for (i = 1; i <= max; i++)
+{
 count[i] += count[i - 1];
 print_array(count, max + 1);
+}
 /* Place elements into the correct index of the sorted array */
 /*int output[size];*/
 for (i = size - 1; i >= 0; i--)
@@ -66,7 +68,9 @@ count[array[i]]--;
 }
 /* Copy the sorted elements back to the original array*/
 for (i = 0; i < (int)size; i++)
+{
 array[i] = output[i];
-/*free(output);*/
-/*free(count);*/
+}
+free(output);
+free(count);
 }
