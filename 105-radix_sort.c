@@ -1,5 +1,9 @@
 #include "sort.h"
 
+int find_max(int *array, int size);
+void radix_counting_sort(int *array, size_t size, int digit, int *output);
+void radix_sort(int *array, size_t size);
+
 /**
  * find_max - find the maximum value in an array of integers.
  * @array: An array of integers.
@@ -15,8 +19,9 @@ int max, i;
 for (max = array[0], i = 1; i < size; ++i)
 {
 if (array[i] > max)
-max = array[i];
+	max = array[i];
 }
+
 return (max);
 }
 
@@ -30,29 +35,23 @@ return (max);
  */
 void radix_counting_sort(int *array, size_t size, int digit, int *output)
 {
-/* Function to perform radix-counting sort based on a specific digit.*/
-int count[10] = {0};
-size_t i;
+	int count[10] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+	size_t i;
 
-for (i = 0; i < size; ++i)
-{
-int index = (array[i] / digit) % 10;
-count[index]++;
-}
-for (i = 1; i < 10; ++i)
-{
-count[i] += count[i - 1];
-}
-for (i = size - 1; (int)i >= 0; --i)
-{
-int index = (array[i] / digit) % 10;
-output[count[index] - 1] = array[i];
-count[index]--;
-}
-for (i = 0; i < size; ++i)
-{
-array[i] = output[i];
-}
+	for (i = 0; i < size; i++)
+		count[(array[i] / digit) % 10] += 1;
+
+	for (i = 0; i < 10; i++)
+		count[i] += count[i - 1];
+
+	for (i = size - 1; (int)i >= 0; i--)
+	{
+		output[count[(array[i] / digit) % 10] - 1] = array[i];
+		count[(array[i] / digit) % 10] -= 1;
+	}
+
+	for (i = 0; i < size; i++)
+		array[i] = output[i];
 }
 
 /**
@@ -69,7 +68,7 @@ void radix_sort(int *array, size_t size)
 /* Perform radix-counting sort for each digit place */
 int max, digit, *output;
 
-if (array == NULL || !size)
+if (array == NULL || size < 2)
 return;
 
 output = malloc(sizeof(int) * size);
