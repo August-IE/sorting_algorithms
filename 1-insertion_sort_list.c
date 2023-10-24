@@ -2,52 +2,47 @@
 
 /**
  * swap_nodes - Swap two nodes in a listint_t doubly-linked list.
- * 
- * @a: A pointer to the first node to swap.
- * @b: The second node to swap.
+ * @h: A pointer to the head of the doubly-linked list.
+ * @x: A pointer to the first node to swap.
+ * @y: The second node to swap.
  */
-void swap_nodes(listint_t *a, listint_t *b)
+void swap_nodes(listint_t **h, listint_t **x, listint_t *y)
 {
-	if (a->prev != NULL)
-		a->prev->next = b;
-	if (b->next != NULL)
-		b->next->prev = a;
-    a->next = b->next;
-    b->prev = a->prev;
-    a->prev =b;
-    b->next = a;
+	(*x)->next = y->next;
+	if (y->next != NULL)
+		y->next->prev = *x;
+	y->prev = (*x)->prev;
+	y->next = *x;
+	if ((*x)->prev != NULL)
+		(*x)->prev->next = y;
+	else
+		*h = y;
+	(*x)->prev = y;
+	*x = y->prev;
 }
-
 /**
- * insertion_sort_list - Sorts a doubly linked list of integers
- *                       using the insertion sort algorithm.
+ * insertion_sort_list - A function that sorts a doubly linked list of integers
+ * in ascending order using the insertion sort algorithm.
+ *
  * @list: A pointer to the head of a doubly-linked list of integers.
  *
  * Description: Prints the list after each swap.
  */
 void insertion_sort_list(listint_t **list)
 {
-	listint_t *iterate, *insert;
+	listint_t *iterate, *insert, *tmp;
 
-	if (!list || !*list || !(*list)->next)
-    return;
+	if (list == NULL || *list == NULL || (*list)->next == NULL)
+		return;
 
-    iterate = (*list)->next;
-    while (1)
+	for (iterate = (*list)->next; iterate != NULL; iterate = tmp)
 	{
-        insert = iterate;
-        iterate = iterate->next;
-        while (insert && insert->prev)
+		tmp = iterate->next;
+		insert = iterate->prev;
+		while (insert != NULL && iterate->n < insert->n)
 		{
-            if (insert->prev->n > insert->n)
-            {
-                swap_nodes(insert->prev, insert);
-                if (!insert->prev)
-                *list = insert;
-                print_list((const listint_t *)*list);
-            }
-            else
-            insert = insert->prev;
-        }
+			swap_nodes(list, &insert, iterate);
+			print_list((const listint_t *)*list);
+		}
 	}
 }
